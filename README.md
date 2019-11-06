@@ -27,6 +27,6 @@ kubectl apply -f rabbitmq-deployment.yaml -n rabbitmq-cluster
 kubectl apply -f rabbitmq-service.yaml -n rabbitmq-cluster
 ```
 
-[click here](https://wesmorgan.svbtle.com/rabbitmq-cluster-on-kubernetes-with-statefulsets)
+[reference](https://wesmorgan.svbtle.com/rabbitmq-cluster-on-kubernetes-with-statefulsets)
 
 
