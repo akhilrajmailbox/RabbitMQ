@@ -2,6 +2,8 @@ apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
   name: rabbitmq
+  labels:
+    app: rabbitmq
 spec:
   serviceName: "rabbitmq"
   replicas: 3
@@ -10,6 +12,26 @@ spec:
       labels:
         app: rabbitmq
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: agentpool
+                operator: In
+                values:
+                - agentpool
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - rabbitmq
+              topologyKey: "kubernetes.io/hostname"
       containers:
       - name: rabbitmq
         # image: rabbitmq:3.7.14
